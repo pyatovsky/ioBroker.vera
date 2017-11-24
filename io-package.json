@@ -1,0 +1,63 @@
+{
+    "common": {
+        "name": "vera",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "Initial version",
+                "ru": "Первоначальная версия"
+            }
+        },
+        "title": "Vera adapter",
+        "desc": {
+            "en": "Adapter for connect to Vera smarthome controller",
+            "ru": "Плагин для управления контроллером умного дома Vera"
+
+        },
+        "authors": [
+            "Pavel Pyatovsky <Pyatovsky.SmartHome@gmail.com>"
+        ],
+		"license": "GPL-3.0",
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "icon": "Vera.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/pyatovsky/ioBroker.vera/master/admin/Vera.png",
+        "keywords": ["vera", "mios", "communication"],
+        "readme": "https://github.com/pyatovsky/ioBroker.vera/blob/master/README.md",
+        "loglevel": "info",
+        "type": "general",
+		"localLink": "http://%native_IP%/cmh"
+    },
+    "native": {
+		    "comment": "My Vera",
+        "IP": "192.168.0.32",
+		    "period": 10000,
+		    "numRelays": 4,
+		    "numOutlines": 12,
+		    "numInlines": 6,
+		    "enableRooms": true,
+		    "enableScenes": true,
+		    "enableRelays": false,
+		    "enableOutlines": false,
+		    "enableInlines": false
+	      },
+	"instanceObjects": [
+        {
+            "_id":  "info.connection",
+            "type": "state",
+            "common": {
+                "role":  "indicator.connected",
+                "name":  "If connected to Vera",
+                "type":  "boolean",
+                "read":  true,
+                "write": false,
+                "def":   false
+            },
+            "native": {}
+        }
+    ],
+    "objects": [
+
+    ]
+}

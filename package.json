@@ -1,0 +1,34 @@
+{
+  "name": "iobroker.vera",
+  "version": "0.0.1",
+  "description": "ioBroker Adapter for control Vera smarthome hub",
+  "author":
+  {
+    "name": "Pavel Pyatovsky",
+    "email": "Pyatovsky.SmartHome@gmail.com"
+  },
+  "homepage": "https://github.com/pyatovsky/ioBroker.vera",
+  "license": "GPL-3.0",
+  "keywords": [
+    "ioBroker",
+    "Vera",
+    "Smart Home",
+    "home automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pyatovsky/ioBroker.vera"
+  },
+  "dependencies": {"request": "*"},
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-replace": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-jscs": "^3.0.1",
+    "grunt-http": "^2.2.0",
+    "mocha": "^3.5.3",
+    "chai": "^4.1.2"
+  },
+  "main": "main.js",
+  "readmeFilename": "README.md"
+}
