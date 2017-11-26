@@ -196,8 +196,8 @@ function lookForDevices(obj) // Ищем все устройства
 			type: 'state',
 				common: {
 				name: obj.devices[i].name,
-				type: 'switch',
-				role: 'boolean',
+				type: 'boolean',
+				role: 'switch',
 				read: 'true',
 				write: 'true'
 				},
@@ -239,8 +239,8 @@ function lookForDevices(obj) // Ищем все устройства
         type: 'state',
         common: {
           name: obj.devices[i].name,
-          type: 'switch',
-          role: 'boolean',
+          type: 'boolean',
+          role: 'switch',
           read: 'true',
           write: 'true'
           },
