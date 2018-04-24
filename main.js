@@ -36,6 +36,12 @@ function httpTurnSwitch (DID, SID, mes)
 	request ('http://'+adapter.config.IP+':3480/data_request?id=action&DeviceNum='+DID+'&serviceId='+SID+'&action=SetTarget&newTargetValue='+mes);
 }
 
+function httpTurnDimmer (DID, SID, mes)
+{
+	request ('http://'+adapter.config.IP+':3480/data_request?id=action&DeviceNum='+DID+'&serviceId='+SID+'&action=SetTarget&newTargetValue='+mes);
+// http://192.168.1.53:3480/data_request?id=lu_action&DeviceNum=389&action=SetLoadLevelTarget&serviceId=urn:upnp-org:serviceId:Dimming1&newLoadlevelTarget=100
+}
+
 //Подписываемся на случай изменения состояния (событие stateChange)
 adapter.on('stateChange', StateProcessing);
 
@@ -101,6 +107,16 @@ function statusProcessing (error, response, body)
               if (obj.devices[ii].states[iii].variable == "Status") // Переменную, которая называется Status
               {
                 adapter.setState('general_switch_'+devicesFastAcs[i].veraDeviceID, Boolean(Number(obj.devices[ii].states[iii].value)), true);
+              }
+            }
+          }
+         else if (devicesFastAcs[i].deviceType == "general_dimmer") // Если это диммер
+          {
+            for (var iii = 0; iii < obj.devices[ii].states.length; ++iii) // Ищем в массиве этого устройства
+            {
+              if (obj.devices[ii].states[iii].variable == "LoadLevelStatus") // Переменную, которая называется Status
+              {
+                adapter.setState('general_dimmer_'+devicesFastAcs[i].veraDeviceID, obj.devices[ii].states[iii].value, true);
               }
             }
           }
@@ -209,6 +225,28 @@ function lookForDevices(obj) // Ищем все устройства
 			});
       devicesFastAcs.push({veraDeviceID: obj.devices[i].id, deviceType: "general_switch"}); // Вносим запись в массив быстрого доступа
 			adapter.log.info(adapter.config.comment+' created GENERAL SWITCH '+obj.devices[i].name+ ' for ID ' + obj.devices[i].id);
+		}
+
+
+   		if (obj.devices[i].category_num == "2") // Если это диммер (известна его категория = 2)
+		{
+			adapter.setObject('general_dimmer_'+obj.devices[i].id,{
+			type: 'state',
+				common: {
+				name: obj.devices[i].name,
+				type: 'number',
+				role: 'dimmer',
+				read: 'true',
+				write: 'true'
+				},
+				native: {
+				veraDeviceID: obj.devices[i].id,
+				veraDeviceCategory: obj.devices[i].category_num,
+				deviceType: 'general_dimmer'
+				}
+			});
+   devicesFastAcs.push({veraDeviceID: obj.devices[i].id, deviceType: "general_dimmer"}); // Вносим запись в массив быстрого доступа
+			adapter.log.info(adapter.config.comment+' created GENERAL DIMMER '+obj.devices[i].name+ ' for ID ' + obj.devices[i].id);
 		}
 
 		if (obj.devices[i].category_num == "17") // Если это датчик температуры (известна его категория = 17)
